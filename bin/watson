@@ -1,0 +1,96 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+require "optparse"
+require "watson"
+
+
+help = <<HELP
+  Top Hat is a simple bot that reads your notes and serves them through the browser.
+  Usage:
+HELP
+
+options = {}
+
+opts = OptionParser.new do |opts|
+  opts.banner = help
+
+  opts.on("-a", "Auto") do
+    options['auto'] = true
+  end
+
+  opts.on("-p [PORT]", "Server port to run on.  Defaults to 3000") do |port|
+    if port.nil?
+      options['port'] = 3000
+      return
+    end
+    options['port'] = port
+  end
+
+  opts.on("-n", "No Server") do
+    options['no-server'] = true
+  end
+
+end
+
+opts.parse!
+
+if ARGV.empty?
+  puts "You need to specify a directory to sweep."
+  exit
+end
+
+options['source'] = ARGV[0]
+
+g = Generator.new(options)
+
+if g.generate_wiki
+  puts "generating wiki in: #{options['source']}"
+end
+
+def globs
+  
+end
+
+if options['auto']
+  require 'directory_watcher'
+
+  watcher = DirectoryWatcher.new(options['source'])
+  watcher.interval = 1
+  watcher.glob = "#{options['source']}/wiki/*"
+
+  watcher.add_observer do |*args|
+     puts "Regenerated. #{args.size} files changed"
+    g.generate_wiki
+  end
+
+  watcher.start
+
+  unless options['auto']
+    loop { sleep 1000 }
+  end
+
+end
+
+
+unless options ['no-server']
+  require 'webrick'
+  include WEBrick
+
+  mime_types = WEBrick::HTTPUtils::DefaultMimeTypes
+  mime_types.store 'js', 'application/javascript'
+
+  s = HTTPServer.new(
+   :Port => options['port'],
+   :DocumentRoot => g.wiki_directory,
+   :MimeType => mime_types
+  )
+  
+  t = Thread.new { s.start }
+
+  trap("INT") { s.shutdown }
+
+  t.join()
+
+end
+

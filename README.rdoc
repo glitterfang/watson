@@ -1,6 +1,9 @@
-= watson
+* a small wiki generator* _written in ruby_
 
-Description goes here.
+top hat is a simple command line tool for generating a wiki. you pass it a directory with your notes. 
+these files are run through markdown, threaded into a layout you provide, and ouputed into a 'wiki' directory in the notes directory
+. A web server is fired up to serve them to your locally. top hat also creates an index page with a list of all other pages.
+ of course, syntax is highlighted.
 
 == Note on Patches/Pull Requests
  
