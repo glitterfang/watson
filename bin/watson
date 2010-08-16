@@ -30,10 +30,20 @@ opts = OptionParser.new do |opts|
   opts.on("-n", "No Server") do
     options['no-server'] = true
   end
-
 end
 
 opts.parse!
+
+if ARGV[0] == 'build'
+  if ARGV[1].nil?
+    puts "bitches pleas"
+    exit
+  end
+
+  b = Builder.new
+  b.build(ARGV[1])
+  exit
+end  
 
 if ARGV.empty?
   puts "You need to specify a directory to sweep."
@@ -42,26 +52,31 @@ end
 
 options['source'] = ARGV[0]
 
-g = Generator.new(options)
+@g = Generator.new(options)
 
-if g.generate_wiki
+if @g.generate_wiki
   puts "generating wiki in: #{options['source']}"
-end
-
-def globs
-  
 end
 
 if options['auto']
   require 'directory_watcher'
+  
+  def watchlist
+     Dir.chdir(@g.directory) do
+       dirs = Dir['*'].select { |x| File.directory?(x) }
+        dirs -= ['wiki']
+        dirs = dirs.map { |x| "#{x}/**/*" }
+        dirs += ['*']
+     end 
+  end
 
   watcher = DirectoryWatcher.new(options['source'])
   watcher.interval = 1
-  watcher.glob = "#{options['source']}/wiki/*"
+  watcher.glob = watchlist
 
   watcher.add_observer do |*args|
      puts "Regenerated. #{args.size} files changed"
-    g.generate_wiki
+    @g.generate_wiki
   end
 
   watcher.start
@@ -82,7 +97,7 @@ unless options ['no-server']
 
   s = HTTPServer.new(
    :Port => options['port'],
-   :DocumentRoot => g.wiki_directory,
+   :DocumentRoot => @g.wiki_directory,
    :MimeType => mime_types
   )
   
@@ -93,4 +108,3 @@ unless options ['no-server']
   t.join()
 
 end
-
