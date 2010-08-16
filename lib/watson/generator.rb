@@ -2,6 +2,8 @@ class Generator
   require "rdiscount"
   require "fileutils"
   require "Pathname"
+  require 'hpricot'               
+  require 'syntax/convertors/html'
 
   class NoSuchDirectory < NameError; end
   class NoSuchNotes < ArgumentError; end
@@ -88,19 +90,26 @@ class Generator
     @notes.each do |note|
       content = ""
       File.open(note) { |f| content = RDiscount.new(f.read).to_html }
-      File.open("#{@directory}/wiki/#{clean_name(note)}" + ".html", "w") { |f| f.puts thread_layout(content) }
-      
+      content = highlight(content)
+      File.open("#{@directory}/wiki/#{clean_name(note)}" + ".html", "w") { |f| f.puts thread_layout(content) }      
     end
   end
+  
+
+def highlight(content)
+    h = Hpricot(content)
+    c = Syntax::Convertors::HTML.for_syntax "ruby"
+    h.search('//pre') do |e|
+        e.inner_html = c.convert(e.inner_text,false)
+    end
+    h.to_s
+end
+
 
   def thread_layout(note)
     load_layout
     layout = File.open(@layout.first) { |f| f.read }
     layout.gsub(/{{ content }}/, note) 
   end
- 
-
-
-
 
 end
