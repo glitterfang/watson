@@ -1,17 +1,13 @@
+module Watson
 class Generator
-  require "rdiscount"
-  require "fileutils"
-  require "Pathname"
+  
+  require 'rdiscount'
+  require 'fileutils'
+  require 'Pathname'
   require 'hpricot'               
   require 'syntax/convertors/html'
 
-  class NoSuchDirectory < NameError; end
-  class NoSuchNotes < ArgumentError; end
-  class NoSuchLayout < ArgumentError; end
-
   attr_accessor :directory, :layout, :notes, :options
-
-
 
   def initialize(options)
     @directory = File.expand_path(options['source'])
@@ -95,21 +91,34 @@ class Generator
     end
   end
   
+  def navigation
+    load_notes
+    b = Markaby::Builder.new( {:notes => @notes, :cleaner => self })
+     b.ul do
+       notes.each do |note|
+        clean = cleaner.clean_name(note)
+          li { a clean, :href => clean + '.html' }
+        end
+     end
+  end
+    
 
-def highlight(content)
+  def highlight(content)
     h = Hpricot(content)
     c = Syntax::Convertors::HTML.for_syntax "ruby"
     h.search('//pre') do |e|
         e.inner_html = c.convert(e.inner_text,false)
     end
     h.to_s
-end
+  end
 
 
   def thread_layout(note)
     load_layout
     layout = File.open(@layout.first) { |f| f.read }
-    layout.gsub(/{{ content }}/, note) 
+    layout = layout.gsub("{{ navigation }}", navigation)
+    layout.gsub("{{ content }}", note)
   end
 
+end
 end

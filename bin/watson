@@ -52,7 +52,7 @@ end
 
 options['source'] = ARGV[0]
 
-@g = Generator.new(options)
+@g = Watson::Generator.new(options)
 
 if @g.generate_wiki
   puts "generating wiki in: #{options['source']}"

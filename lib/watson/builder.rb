@@ -1,3 +1,4 @@
+module Watson
 class Builder
 
   def build(dir)
@@ -14,4 +15,5 @@ class Builder
     FileUtils.mkdir("notes")
   end
 
+end
 end
