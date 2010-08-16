@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "watson"
     gem.summary = "a small wiki generator" 
-    gem.description = ""
+    gem.description = "a small wiki generator.  pass your markdown formatted notes, and you get a neat /wiki served locally on the port of your choosing.  Syntax highlighting, "
     gem.email = "jwoodbridge@me.com"
     gem.homepage = "http://github.com/glitterfang/watson"
     gem.authors = ["Justin Woodbridge"]
