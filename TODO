@@ -1,5 +1,6 @@
 @glitterfang is working on:
   - specified output directory
   - wiki search tool
-need to add default port
-Add in default layout on 'build' command
+  - need to add default port
+  - Add in default layout on 'build' command
+  - first page shown on launch. aliased to index.html?

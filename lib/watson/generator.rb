@@ -75,6 +75,10 @@ class Generator
    name.gsub(/#{file_type}/, "")
   end
 
+  def url_name(name)
+    name = name.downcase.gsub(" ", "-")
+  end
+
 
   def markup_notes
     load_notes
@@ -87,7 +91,7 @@ class Generator
       content = ""
       File.open(note) { |f| content = RDiscount.new(f.read).to_html }
       content = highlight(content)
-      File.open("#{@directory}/wiki/#{clean_name(note)}" + ".html", "w") { |f| f.puts thread_layout(content) }      
+      File.open("#{@directory}/wiki/#{url_name(clean_name(note))}" + ".html", "w") { |f| f.puts thread_layout(content) }      
     end
   end
   
@@ -96,8 +100,7 @@ class Generator
     b = Markaby::Builder.new( {:notes => @notes, :cleaner => self })
      b.ul do
        notes.each do |note|
-        clean = cleaner.clean_name(note)
-          li { a clean, :href => clean + '.html' }
+          li { a cleaner.clean_name(note), :href => cleaner.url_name(cleaner.clean_name(note)) + '.html' }
         end
      end
   end
