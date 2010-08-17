@@ -1,80 +1,106 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style type="text/css" media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      }
 
-	<title>glitterfang/watson @ GitHub</title>
-	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #13ca15;
-		  font-family: "Helvetica,Arial,FreeSans";
-  		color: #ffffff;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-		h1 { font-size: 3.8em; color: #ec35ea; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #ec35ea; }
-    h3 { text-align: center; color: #ec35ea; }
-    a { color: #ec35ea; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
-	
+      body {
+        font-family: Helvetica Neue;
+        line-height: 1.5em;
+        color: #333;
+      }
+
+      p {
+        font-size: 12px;
+        padding-bottom: 10px;
+      }
+
+      h1 {  
+        font-size: 18px;
+        display: inline;
+        margin-right: 10px;
+      }
+
+      h2 {
+        font-size: 14px;
+      }
+
+       pre {
+        background-color: black;
+        color: white;
+        line-height: 1em;
+        padding-top: 10px;
+        padding-bottom: -10px;
+        margin-bottom: 10px;
+      }
+
+      a {
+          color: rgb(235, 64, 12);
+          -webkit-transition: 0.25s color;
+          text-decoration: none;
+          font-weight: bold;
+        }
+        
+        a:hover {
+          color: rgb(9, 69, 183);
+        }
+          
+
+      .desc {
+        font-size: 11px;
+        font-style: itali;
+        color: #999;
+      }
+      
+      .author {
+        font-weight: normal;
+        color: #999;
+        font-size: 13px;
+      }
+
+      #container {
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
+      }
+    </style>
+
+  <meta charset="UTF-8">
+	<title>watson</title>
 </head>
-
 <body>
-  <a href="http://github.com/glitterfang/watson"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
   <div id="container">
+    <h1>watson</h1>
+    <span class="desc">a ruby gem</span>
 
-    <div class="download">
-      <a href="http://github.com/glitterfang/watson/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/glitterfang/watson/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
+    <p>watson is a simple command line tool for generating a wiki.  you pass it a directory with your notes.  these files are run through markdown, threaded into a layout you provide, and ouputed into a 'wiki' directory in the notes directory.  A web server is fired up to serve them to your locally.  top hat also creates an index page with a list of all other pages.  of course, syntax is highlighted.</p>
 
-    <h1><a href="http://github.com/glitterfang/watson">watson</a>
-      <span class="small">by <a href="http://github.com/glitterfang">glitterfang</a></span></h1>
+    <h2>install</h2>
+    <pre>
+      >> [sudo] gem install watson
+    </pre>
+      
 
-    <div class="description">
-      a small wiki generator
-    </div>
+    <h2>setup</h2>
+    <pre>
+      >> mkdir ~/notes ~/notes/layouts
+      >> touch ~/notes/layouts/layout.html
+    </pre>
 
-    <h2>Authors</h2>
-<p>Justin Woodbridge (jwoodbridge@me.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>Justin Woodbridge (jrwoodbridge1@gmail.com)<br/>      </p>
+    <h2>generate</h2>
+    <pre>
+      >> watson ~/notes
+    </pre>
+    
+    <h2>contribute</h2>
+    <p>watson's code rests in <a href="http://github.com/glitterfang/watson">github</a>.  if you find inspiration, please take action! patch a bug, add a feature.  If you don't know ruby, or even if you do, the best way to contribute is to send me an <a href="mailto:me@justinwoodbridge.com">email</a> with your feedback.  the moral sends me into a coding frenzy.</p>
 
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/glitterfang/watson/zipball/master">zip</a> or
-      <a href="http://github.com/glitterfang/watson/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/glitterfang/watson</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/glitterfang/watson">glitterfang/watson</a>
-    </div>
-
+    <center><h2 class="author">written by justin woodbridge, <a href="http://github.com/glitterfang">@glitterfang</a></h2></center>
   </div>
-
-  
 </body>
 </html>
