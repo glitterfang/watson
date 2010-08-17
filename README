@@ -1,0 +1,40 @@
+                - tophat -
+               version 0.1.1
+
+watson is a simple command line tool for 
+generating a wiki. you pass it a directory 
+with your notes. these files are run through
+markdown, threaded into a layout you provide,
+and ouputed into a 'wiki' directory in the 
+notes directory. A web server is fired up to 
+serve them to your locally. top hat also creates
+an index page with a list of all other pages.
+of course, syntax is highlighted.
+
+                % usage %
+
+ * install *
+ -------------------------------------------
+| >> [sudo] gem install watson              |  
+ -------------------------------------------
+  
+ * assemble *
+ -------------------------------------------
+| >> watson build ~                         |
+ -------------------------------------------
+ 
+ * run *
+ -------------------------------------------
+| >> watson .                               |
+ -------------------------------------------
+
+              % contributing %
+
+watson is still rough around the edges. if you
+find a bug, or a feature that shouldbe available,
+fork the project, and add your line to the TODO 
+file.  send me a pull request, and i'll merge it.
+or better yet, add the feature or fix the bug 
+yourself for faster results. but the best way 
+to help out is send me your feedback. it keeps
+me inspired to do more.

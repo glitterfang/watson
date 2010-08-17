@@ -5,18 +5,19 @@
 
 Gem::Specification.new do |s|
   s.name = %q{watson}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Woodbridge"]
-  s.date = %q{2010-08-15}
+  s.date = %q{2010-08-16}
   s.default_executable = %q{watson}
-  s.description = %q{}
+  s.description = %q{a small wiki generator.  pass your markdown formatted notes, and you get a neat /wiki served locally on the port of your choosing.  Syntax highlighting, }
   s.email = %q{jwoodbridge@me.com}
   s.executables = ["watson"]
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+     "README.rdoc",
+     "TODO"
   ]
   s.files = [
     ".document",
@@ -24,16 +25,21 @@ Gem::Specification.new do |s|
      "LICENSE",
      "README.rdoc",
      "Rakefile",
+     "TODO",
      "VERSION",
      "bin/watson",
      "lib/watson.rb",
+     "lib/watson/builder.rb",
+     "lib/watson/errors.rb",
+     "lib/watson/generator.rb",
      "test/helper.rb",
      "test/test_watson.rb",
      "test/wiki/_layouts/layout.html",
      "test/wiki/notes/another.mdown",
      "test/wiki/notes/test.mdown",
      "test/wiki/wiki/another.html",
-     "test/wiki/wiki/test.html"
+     "test/wiki/wiki/test.html",
+     "watson.gemspec"
   ]
   s.homepage = %q{http://github.com/glitterfang/watson}
   s.rdoc_options = ["--charset=UTF-8"]
